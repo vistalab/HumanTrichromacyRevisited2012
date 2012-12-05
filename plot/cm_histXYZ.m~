@@ -1,0 +1,25 @@
+function cm_histXYZ(before, after, subind)
+
+nbin = 21;
+bin = linspace(-10,10,nbin); stimAmp = 10;
+
+
+FaceB = ones(1,3) * 0.8; EdgeB = 'none'; stimAmpB = 10;
+
+FaceA = 'none';  EdgeA = ones(1,3) * 0.2; stimAmpA = 1;
+
+
+figure('Position',[0 0 1300 200])
+
+for ii = 1:3
+    subplot(1,3,ii);hist(before{subind}(ii,:)*stimAmp,bin); xlim(minmax(bin))
+    h = findobj(gca,'Type','patch');
+    set(h(1),'FaceColor',FaceB,'EdgeColor',EdgeB,'LineWidth',2)
+    hold on
+end
+
+bin = linspace(-10,10,nbin);
+figure('Position',[0 300 1300 200])
+subplot(1,3,1);hist(after{subind}(1,:),bin); xlim(minmax(bin))
+subplot(1,3,2);hist(after{subind}(2,:),bin); xlim(minmax(bin))
+subplot(1,3,3);hist(after{subind}(3,:),bin); xlim(minmax(bin))
