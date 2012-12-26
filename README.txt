@@ -1,27 +1,34 @@
-% readme.m
+% README
 % 
-% The open-source codes are for a PNAS paper:
-%% 'Human Trichromacy Revisited'
-%   by Horiguchi, Winawer, Dougherty and Wandell. (hopefully in 2012)
+% This repository contains the source code to replicate key results from the paper:
 %
+%  'Human Trichromacy Revisited'
+%   by Horiguchi, Winawer, Dougherty and Wandell.
+%   Proc. Natl. Acad. Sciences, 2012, Dec 19. [Epub ahead of print]
+% 
 %% Required operating enviroment
 % 
-% Matlab (after ver 7.11.0 probably work before that but not checked) on
-% Linux, MacOS and Windows 7.
+% Matlab (ver 7.11.0).  The code probably runs on earlier versions, 
+% but we have not checked extensively.
+%
+% We know that it runs under Matlab in Linux and MacOS; probably OK in Windows 7.
 % 
-% Add matlab path a folder in which readme.m is (includes subfolder). 
+%% To run this code 
 %
-% The codes also require some toolboxes you can download freely:
+% The code also requires three toolboxes you can download freely:
 %
-% 1) v-set (github Brian A. Wandell, Stanford)
-% https://github.com/wandell/vset
+% 1) vset (github Brian A. Wandell, Stanford)
+%   http://github.com/wandell/vset
 %
 % 2) vistadisp(Wandell lab, Stanford)
-% http://white.stanford.edu/newlm/index.php/Software
+%   http://white.stanford.edu/newlm/index.php/Software#VISTADISP
 %
 % 3) psychtoolbox (David Brainard, U Pen)
-% http://psychtoolbox.org/HomePage
+%   http://psychtoolbox.org/HomePage
 %
+% All of this software must be on your path. We wish the world would be a simpler 
+% place.
 %
 % 
 %  HH (c) Vista lab Oct 2012. 
+%
