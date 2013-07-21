@@ -1,13 +1,17 @@
-function inertP = odParams(visualfield, wave) 
+function inertP = odParams(visualField, wave) 
 % Create optical density default parameters
 %
-%
 % Inputs:
-%   visualfield:  'fovea' or 'periphery' or specific subject
+%   visualField:  'fovea' or 'periphery' or estimate from a specific
+%                   subject in HH's paper
 %   wave:          Wavelength list
 %
+% Example:
+%    fovParams = odParams('stockman fovea',400:700)
+%    peripheryParams = odParams('stockman periphery',400:700)
 %
-% see also ieReadHumanQE.m
+% See also ieReadHumanQE.m
+%
 % 
 %  (c) VISTA lab 2012 HH
 %%
@@ -15,24 +19,27 @@ if ~exist('wave','var') || isempty(wave)
     wave = cm_getDefaultWls;
 end
 
-inertP.visfield = visualfield;
+inertP.visfield = visualField;
 inertP.wave     = wave;
 
-switch lower(visualfield)
+visualField = ieParamFormat(visualField);
+switch lower(visualField)
     
     % stockman foveal params (at 2 deg)
     case {'f','fov','fovea','stf','stockmanfovea'}
-        
-        inertP.lens    = 1;
-        inertP.macular = 0.28;
-        inertP.LPOD    = 0.5;
+        % Stockman, default, fovea
+
+        inertP.lens    = 1;      % Lens transmittance?
+        inertP.macular = 0.28;   % Macular pigment density
+        inertP.LPOD    = 0.5;    % L,M,S cone pigment optical densities
         inertP.MPOD    = 0.5;
         inertP.SPOD    = 0.4;
         inertP.melPOD  = 0.5;
         
     % stockman peripheral params (at 10 deg)    
     case {'p','peri','periphery','stp','stockmanperi','stockmanperiphery'}
-        
+        % Stockman, default, periphery
+
         inertP.lens    = 1;
         inertP.macular = 0;
         inertP.LPOD    = 0.38;
@@ -41,6 +48,7 @@ switch lower(visualfield)
         inertP.melPOD  = 0.5;
         
     case {'s1f'}
+        % Subject 1 fovea
         
         inertP.lens    = 0.7467;
         inertP.macular = 0.6910;
@@ -51,7 +59,7 @@ switch lower(visualfield)
         inertP.visfield = 'f';
         
     case {'s1p'}
-        
+        % Subject 1 periphery
         inertP.lens    = 0.7467;
         inertP.macular = 0;
         inertP.LPOD    = 0.4964 ./ 0.5 .* 0.38; 
@@ -61,7 +69,7 @@ switch lower(visualfield)
         inertP.visfield = 'p';
         
     case {'s2f'}
-        
+        % Subject 2 fovea
         inertP.lens    = 0.7637;
         inertP.macular = 0.5216;
         inertP.LPOD    = 0.4841; 
@@ -71,6 +79,7 @@ switch lower(visualfield)
         inertP.visfield = 'f';
 
     case {'s2p'}
+        % Subject 2 periphery
         inertP.lens    = 0.7637;
         inertP.macular = 0;
         inertP.LPOD    = 0.4841 ./ 0.5 .* 0.38; 

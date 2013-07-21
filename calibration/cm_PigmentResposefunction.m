@@ -1,5 +1,5 @@
-function PigResfunc = cm_PigmentResposefunction(foveaflag, modelparams, melanopsinflag)
-% PigResfunc = cm_PigmentResposefunction(foveaflag, modelparams, melanopsinflag)
+function PigResfunc = cm_PigmentResposefunction(foveaflag, modelparams, melanopsinflag, wls)
+% PigResfunc = cm_PigmentResposefunction(foveaflag, modelparams, melanopsinflag, [wls])
 %
 % <Input>
 %   foveaflag       ... fovea or not
@@ -7,7 +7,7 @@ function PigResfunc = cm_PigmentResposefunction(foveaflag, modelparams, melanops
 %                       2) macular pigment density 3)-6) photopigment
 %                       optical density 
 %
-%   melanopsinflag  ... add melanopsin response function or not
+%   melanopsinflag  ... include melanopsin response function true/false
 %
 % <Output>
 %
@@ -17,6 +17,14 @@ function PigResfunc = cm_PigmentResposefunction(foveaflag, modelparams, melanops
 %
 % (c) VISTA lab 2012 HH
 %%
+
+if ~exist('wls','var') || isempty('wls')
+    wls = cm_getDefaultWls;
+end
+
+if    ~isempty(strfind(foveaflag,'fovea')),     foveaflag = 'fovea';
+else  ~isempty(strfind(foveaflag,'periphery')), foveaflag = 'periphery';
+end
 switch foveaflag
     case {1,'f','fovea','fov'}
         foveaflag = true;
@@ -24,13 +32,11 @@ switch foveaflag
         foveaflag = false;
 end
 
-wls = cm_getDefaultWls;
-
 lensfactor = modelparams(1);
 macfactor  = modelparams(2);
 
 % get LMS absorbance
-absorbanceSpectra = cm_loadLMSabsorbance(foveaflag);
+absorbanceSpectra = cm_loadLMSabsorbance(foveaflag,wls);
 
 % need melanopsin?
 if melanopsinflag
@@ -59,6 +65,6 @@ eT = lT .* mT.transmittance';
 Lambdashift = 0;
 
 %%  pigment response function
-PigResfunc = cm_variableLMSI_PODandLambda(absorbanceSpectra, PODs, Lambdashift, eT);
+PigResfunc = cm_variableLMSI_PODandLambda(absorbanceSpectra, PODs, Lambdashift, eT, wls);
 
 end

@@ -27,17 +27,19 @@ elseif fovealflag == true;
     receptorTypes = {'FovealLCone','FovealMCone','FovealSCone'};
 end
 
-stLMSabsorbtance = load(stLMSname);
+stLMSabsorbtance = ieReadSpectra(stLMSname,wls);
 species = 'Human'; source = 'StockmanSharpe'; 
 
 % get absorbanceSpectra (which required lens transmittance and axial pigment density to become LMS function)
+opticaldensities  = zeros(1,length(receptorTypes));
+absorbanceSpectra = zeros(length(wls),length(receptorTypes));
 for ii = 1:length(receptorTypes)
     
     % photopigment optical densities (from psychtoolbox)
     opticaldensities(ii) = PhotopigmentAxialDensity(receptorTypes{ii},species,source);
     
     % calc absorbance from absorbtance
-    [absorbanceSpectra(:,ii), absorbanceSpectraWls] = AbsorbtanceToAbsorbance(stLMSabsorbtance.data(:,ii), wls, opticaldensities(ii));
+    absorbanceSpectra(:,ii) = AbsorbtanceToAbsorbance(stLMSabsorbtance(:,ii), wls, opticaldensities(ii));
 
     % for comfirmation, recombert to absorbtance
     % abtcheck(:,ii) = AbsorbanceToAbsorbtance(absorbanceSpectra(:,ii)', wls, opticaldensities(ii));

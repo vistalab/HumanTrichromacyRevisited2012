@@ -1,6 +1,6 @@
-function varLMSIfun = cm_variableLMSI_PODandLambda(AbsSpectra, POD, Lambdashift, eyetransmittance)
+function varLMSIfun = cm_variableLMSI_PODandLambda(AbsSpectra, POD, Lambdashift, eyetransmittance, wls)
 %
-% varLMSIfun = cm_variableLMSI_PODandLambda(AbsSpectra, POD, Lambdashift, eyetransmittance)
+% varLMSIfun = cm_variableLMSI_PODandLambda(AbsSpectra, POD, Lambdashift, eyetransmittance, [wls])
 % 
 % <Input>
 %
