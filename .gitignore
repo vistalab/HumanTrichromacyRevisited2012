@@ -1,0 +1,6 @@
+# .gitignore
+#
+#   Ignore files that are saved in PNASfigures directory
+
+PNASfigures
+PNASfigures/*
